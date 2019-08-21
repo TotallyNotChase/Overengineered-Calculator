@@ -5,6 +5,7 @@ This is just a fun little program I made for [r/programmerhumor's Overengineerin
 It uses the following libraries:
   1. Tkinter
   2. Math
+  3. Playsound
 
 The calculator functions *mostly* like a normal calculator, I've not done much bug testing because I kinda procrastinated on the event and only started on the 3rd week.
 
