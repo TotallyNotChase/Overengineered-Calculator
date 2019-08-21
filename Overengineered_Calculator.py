@@ -47,10 +47,12 @@ def sound(arg):
         playsound.playsound('C:/Users/Chase/Desktop/Python Projects/Overengineered Calculator/Assets/ans.mp3', block=False)
     elif arg == 'e':
         playsound.playsound('C:/Users/Chase/Desktop/Python Projects/Overengineered Calculator/Assets/expo.mp3', block=False)
-    elif arg == 'log':
+    elif arg == "log":
         playsound.playsound('C:/Users/Chase/Desktop/Python Projects/Overengineered Calculator/Assets/log.mp3', block=False)
-    elif arg == 'antilog':
+    elif arg == "antilog":
         playsound.playsound('C:/Users/Chase/Desktop/Python Projects/Overengineered Calculator/Assets/antilog.mp3', block=False)
+    elif arg == "fact":
+        playsound.playsound('C:/Users/Chase/Desktop/Python Projects/Overengineered Calculator/Assets/factorial.mp3', block=False)
     else:
         print("Sorry something went wrong")
 
@@ -69,6 +71,15 @@ def declare_var():
     calc.configure(background="gray")
     calc.title("Very Sophisticated Simple Calculator")
     screen = Entry(calc, font=('comic sans', 40, 'bold'), textvariable = num, bg="gray", justify='right', state='disabled').grid(columnspan=5)
+
+def simplify():
+    global op
+    count=0
+    a = float(op)
+    while a > 10:
+        a/=10
+        count+=1
+    op = str(round((a*10), 4)) + "*10^" + str(count)
 
 def onClick(operator):
     global op, trueop
@@ -95,7 +106,9 @@ def onEqual():
             op = trueop
             logop = ""
             isLog = False
-            ans = op
+            ans = trueop
+            if float(trueop) > 100000:
+                simplify()
             num.set(op)
         except:
             op = ""
@@ -109,7 +122,9 @@ def onEqual():
             op = trueop
             antilogop = ""
             isAntilog = False
-            ans = op
+            ans = trueop
+            if float(trueop) > 100000:
+                simplify()
             num.set(op)
         except:
             op = ""
@@ -120,12 +135,14 @@ def onEqual():
     else:
          try:
             trueop = str(round(eval(trueop), 4))
-            if len(trueop) > 20 :
+            if len(op) > 20 :
                 op = ""
                 trueop = ""
                 num.set("INF")
             else:
                 op = trueop
+                if float(trueop) > 100000:
+                    simplify()
                 num.set(op)
                 ans = trueop
          except:
@@ -133,7 +150,7 @@ def onEqual():
 
 def onAns():
     global op, trueop, ans
-    op += ans
+    op += "Ans"
     trueop += ans
     num.set(op)
 
@@ -147,7 +164,7 @@ def onPercent():
     except:
         op = ""
         trueop = ""
-        num.set("Invalid Input")                #Need to check why percent doesn't work with float
+        num.set("Invalid Input")
 
 def onDecimal():
     global op, trueop
@@ -252,7 +269,7 @@ btn2 = Button(calc, font=('comic sans', 20, 'bold'), text="2", bd=8, command = l
 btn3 = Button(calc, font=('comic sans', 20, 'bold'), text="3", bd=8, command = lambda:[onClick(3), sound(3)], bg="black", fg="white").grid(row=4, column=3, sticky='news')
 btnplus = Button(calc, font=('comic sans', 20, 'bold'), text="+", bd=8, command = lambda:[onClick("+"), sound('+')], padx=16, bg="black", fg="white").grid(row=4, column=4, sticky='news')
 #Fifth row
-btnfact = Button(calc, font=('comic sans', 20, 'bold'), text="x!", bd=8, command = lambda:[onFactorial(), sound("antilog")], bg="black", fg="white").grid(row=5, column=0, sticky='news')
+btnfact = Button(calc, font=('comic sans', 20, 'bold'), text="x!", bd=8, command = lambda:[onFactorial(), sound("fact")], bg="black", fg="white").grid(row=5, column=0, sticky='news')
 btnans = Button(calc, font=('comic sans', 20, 'bold'), text="Ans", bd=8, command = lambda:[onAns(), sound("Ans")], bg="black", fg="green").grid(row=5, column=1, sticky='news')
 btn0 = Button(calc, font=('comic sans', 20, 'bold'), text="0", bd=8, command = lambda:[onClick(0), sound(0)], bg="black", fg="white").grid(row=5, column=2, sticky='news')
 btndecimal = Button(calc, font=('comic sans', 20, 'bold'), text=".", bd=8, command = lambda:[onDecimal(), sound('.')], bg="black", fg="white").grid(row=5, column=3, sticky='news')
