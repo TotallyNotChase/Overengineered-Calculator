@@ -266,6 +266,6 @@ if __name__ == "__main__":
     calc = tk.Tk()
     calc.title("Very Sophisticated Simple Calculator")
     calc.configure(background="gray")
-    maincalculator(calc).grid(columnspan=5, rowspan=5)
+    maincalculator(calc).pack(side = tk.LEFT)
     maincalculator.sound(calc, "start")
     calc.mainloop()
