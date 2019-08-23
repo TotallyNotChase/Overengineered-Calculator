@@ -392,11 +392,8 @@ if __name__ == "__main__":
     calc = tk.Tk()
     calc.title("Very Sophisticated Simple Calculator")
     calc.configure(background="gray")
-<<<<<<< HEAD
     maincalculator(calc).pack(side = tk.LEFT)
     maincalculator.sound(calc, "start")
-=======
     MainCalculator(calc).grid(columnspan=5, rowspan=5)
     MainCalculator.sound(calc, "start")
->>>>>>> testing
     calc.mainloop()
