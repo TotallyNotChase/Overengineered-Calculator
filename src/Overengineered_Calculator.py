@@ -36,7 +36,7 @@ class MainCalculator(tk.Frame):
         elif arg == '+':
             playsound.playsound(base_path + "Sounds\\plus.mp3", block=False)
         elif arg == '-':
-            playsound.playsound(base_path + "Soundsminus.mp3", block=False)
+            playsound.playsound(base_path + "Sounds\\minus.mp3", block=False)
         elif arg == '*':
             playsound.playsound(base_path + "Sounds\\multiple.mp3", block=False)
         elif arg == '=':
@@ -266,7 +266,6 @@ class MainCalculator(tk.Frame):
         #Variable definitions - For Main Calculator
 
         self.num = tk.StringVar()
-        self.parent = parent
         self.op = ""
         self.ans = ""
         self.trueop = ""
@@ -291,7 +290,7 @@ class MainCalculator(tk.Frame):
         btnpercent = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "%", bd = 8, command = lambda: [self.onPercent(), self.sound('%')], 
                                bg = "black", fg = "white").grid(row = 1, column = 3, sticky = 'news')
 
-        btndivide = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "÷", bd = 8, command = lambda: [self.onClick("/"), self.sound('/')], padx=16, 
+        btndivide = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "÷", bd = 8, command = lambda: [self.onClick("/"), self.sound('/')], 
                               bg = "black", fg = "white").grid(row = 1, column = 4, sticky = 'news')
         #Second row
 
@@ -307,7 +306,7 @@ class MainCalculator(tk.Frame):
         btn9 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "9", bd = 8, command = lambda: [self.onClick(9), self.sound(9)], 
                          bg = "black", fg = "white").grid(row = 2, column = 3, sticky = 'news')
 
-        btnmultiply = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "×", command = lambda: [self.onClick("*"), self.sound('*')], bd=8, padx=16,
+        btnmultiply = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "×", command = lambda: [self.onClick("*"), self.sound('*')], bd=8, 
                                 bg = "black", fg = "white").grid(row = 2, column = 4, sticky = 'news')
         #Third row
 
@@ -323,7 +322,7 @@ class MainCalculator(tk.Frame):
         btn6 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "6", bd = 8, command = lambda: [self.onClick(6), self.sound(6)], 
                          bg = "black", fg = "white").grid(row = 3, column = 3, sticky = 'news')
 
-        btnminus = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "-", bd = 8, command = lambda: [self.onClick("-"), self.sound('-')], padx=16, 
+        btnminus = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "-", bd = 8, command = lambda: [self.onClick("-"), self.sound('-')],  
                              bg = "black", fg = "white").grid(row = 3, column = 4, sticky = 'news')
 
         #Fourth row
@@ -341,7 +340,7 @@ class MainCalculator(tk.Frame):
         btn3 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "3", bd = 8, command = lambda: [self.onClick(3), self.sound(3)], 
                          bg = "black", fg = "white").grid(row = 4, column = 3, sticky = 'news')
 
-        btnplus = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "+", bd = 8, command = lambda: [self.onClick("+"), self.sound('+')], padx=16,
+        btnplus = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "+", bd = 8, command = lambda: [self.onClick("+"), self.sound('+')], 
                             bg = "black", fg = "white").grid(row = 4, column = 4, sticky = 'news')
         #Fifth row
 
@@ -357,7 +356,7 @@ class MainCalculator(tk.Frame):
         btndecimal = tk.Button(self, font = ('comic sans', 20, 'bold'), text = ".", bd = 8, command = lambda: [self.onDecimal(), self.sound('.')], 
                                bg = "black", fg = "white").grid(row = 5, column = 3, sticky = 'news')
 
-        btnequal = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "=", bd = 8, command = lambda: [self.onEqual(), self.sound('=')], padx=16, 
+        btnequal = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "=", bd = 8, command = lambda: [self.onEqual(), self.sound('=')],  
                              bg = "black", fg = "white").grid(row = 5, column = 4, sticky = 'news')
 
         #Variable definitions - For Assigning Macros
@@ -378,22 +377,96 @@ class MainCalculator(tk.Frame):
         #Buttons Defitions
 
         btnadd = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Add Macro", bd = 8, command = self.addbtn, bg = "black", fg = "white").grid(row = 6, column = 0)
-        self.newbutton = [tk.Button(self, font = ('comic sans', 20, 'bold'), textvariable = self.macrotext[x], bd=8,
+        self.macrobutton = [tk.Button(self, font = ('comic sans', 20, 'bold'), textvariable = self.macrotext[x], bd=8,
                                     bg = "black", fg = "white")     
                           for x in range (5)]
-        [self.newbutton[x].grid(row = 7, column = x, sticky = 'news') for x in range (5)]
-        self.newbutton[0].configure(command = lambda: self.onClick(self.macronumber[0]))
-        self.newbutton[1].configure(command = lambda: self.onClick(self.macronumber[1]))
-        self.newbutton[2].configure(command = lambda: self.onClick(self.macronumber[2]))
-        self.newbutton[3].configure(command = lambda: self.onClick(self.macronumber[3]))
-        self.newbutton[4].configure(command = lambda: self.onClick(self.macronumber[4]))
+        [self.macrobutton[x].grid(row = 7, column = x, sticky = 'news') for x in range (5)]
+        self.macrobutton[0].configure(command = lambda: self.onClick(self.macronumber[0]))
+        self.macrobutton[1].configure(command = lambda: self.onClick(self.macronumber[1]))
+        self.macrobutton[2].configure(command = lambda: self.onClick(self.macronumber[2]))
+        self.macrobutton[3].configure(command = lambda: self.onClick(self.macronumber[3]))
+        self.macrobutton[4].configure(command = lambda: self.onClick(self.macronumber[4]))
 
+class CanvasTab(tk.Frame):
+
+    def showImage(self, image):
+        #Puts the image on canvas after garbage collection
+        self.fileimage = image
+        self.canvas.create_image((0,0), image = image, anchor = tk.NW)
+
+    def fetchKittens(self, seed):
+        #Fetches an image based on the random seed
+        self.randomkit[0] = seed
+        if seed == 1:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens1.png"))
+        elif seed == 2:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens2.png"))
+        elif seed == 3:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens3.png"))
+        elif seed == 4:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens4.png"))
+        elif seed == 5:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens5.png"))
+        elif seed == 6:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens6.png"))
+        elif seed == 7:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens7.png"))
+        elif seed == 8:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens8.png"))
+        elif seed == 9:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens9.png"))
+        elif seed == 10:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\kittens10.png"))
+
+    def fetchPuppies(self, seed):
+        #Fetches an image based on the random seed
+        self.randompup[0] = seed
+        if seed == 1:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies1.png"))
+        elif seed == 2:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies2.png"))
+        elif seed == 3:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies3.png"))
+        elif seed == 4:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies4.png"))
+        elif seed == 5:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies5.png"))
+        elif seed == 6:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies6.png"))
+        elif seed == 7:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies7.png"))
+        elif seed == 8:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies8.png"))
+        elif seed == 9:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies9.png"))
+        elif seed == 10:
+            self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies10.png"))
+
+
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+
+        ttk.Separator(self, orient = tk.VERTICAL).grid(row=0, column = 5, padx = 5, rowspan=4, sticky = 'ns')
+        self.randomkit = [0, 0]         #A list to avoid generating the previous random number
+        self.randompup = [0, 0]
+        btnkittens = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View kittens", bd = 8, command = lambda: self.fetchKittens(random.choice([i for i in range (1, 10) if i not in self.randomkit])), 
+                                bg = "black", fg = "white").grid(row = 0, column = 6, ipady = 40, sticky = 'news')
+
+                            #The Internal padding is so that the buttons have no gap between them
+
+        btnpuppies = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View puppies", bd = 8, command = lambda: self.fetchPuppies(random.choice([i for i in range (1, 10) if i not in self.randompup])), 
+                                bg = "black", fg = "white").grid(row = 2, column = 6, ipady = 40, sticky = 'news')
+
+        self.canvas = tk.Canvas(self, width = 497)
+                            #The Canvas has a height of ~280 and width of 497, this the resolution of all the pictures
+        self.canvas.grid(row=0, column = 7, rowspan = 4)
 
 if __name__ == "__main__":
     calc = tk.Tk()
     calc.title("Very Sophisticated Simple Calculator")
     calc.configure(background="gray")
     base_path = str(Path(__file__).parent) + "\\assets\\"
-    MainCalculator(calc).grid(columnspan=5, rowspan=5)
+    MainCalculator(calc).grid(columnspan=5, rowspan=8)
     MainCalculator.sound(calc, "start")
+    CanvasTab(calc).grid(row = 0, column = 6, rowspan = 4, sticky = 'news')
     calc.mainloop()
