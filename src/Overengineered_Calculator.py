@@ -64,6 +64,60 @@ class MainCalculator(tk.Frame):
 
     #Methods used for Main Calculator - Start
 
+    def postfixConvert(self, oplist = []):
+        stack = [""]
+        for i in oplist:
+            isDone = False
+            if i == '+':
+                while (not isDone):
+                    if stack[0] == "" or stack[0] == '-' or stack[0] == '(':
+                        stack.insert(0, i)
+                        isDone = True
+                    else:
+                        try:
+                            print(stack.pop(0))
+                        except:
+                            print("Stack is empty")
+            elif i == '-':
+                while (not isDone):
+                    if stack[0] == "" or stack[0] == '(':
+                        stack.insert(0, i)
+                        isDone = True
+                    else:
+                        try:
+                            print(stack.pop(0))
+                        except:
+                            print("Stack is empty")
+            elif i == '*':
+                while (not isDone):
+                    if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '/' or stack[0] == '(':
+                        stack.insert(0, i)
+                        isDone = True
+                    else:
+                        try:
+                            print(stack.pop(0))
+                        except:
+                            print("Stack is empty")
+            elif i == '/':
+                while (not isDone):
+                    if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '(':
+                        stack.insert(0, i)
+                        isDone = True
+                    else:
+                        print(stack.pop(0))
+            elif i == '^':
+                stack.insert(0, i)
+            elif i == '(':
+                stack.insert(0, i)
+            elif i == ')':
+                while stack[0] != '(':
+                    print(stack.pop(0))
+            else:
+                print(i)
+        for i in range (0, len(stack)):
+            if stack[i] != '(':
+                print(stack[i])
+
     def simplify(self):
         #For simplifying op into x * 10^y form
         count = 0
@@ -71,7 +125,7 @@ class MainCalculator(tk.Frame):
         while a > 10:
             a /= 10
             count += 1
-        self.op = str(round((a*10), 4)) + "*10^" + str(count)
+        self.op = str(round((a*10), 4)) + "*10^" + str(count-1)
 
     def onClick(self, operator):
         #For handling MOST key presses
@@ -80,8 +134,11 @@ class MainCalculator(tk.Frame):
             self.trueop = ""
             self.num.set("INF")
         else:
+            if operator == '**':
+                self.op += '^'
+            else:
+                self.op += str(operator)
             self.trueop += str(operator)
-            self.op += str(operator)
             self.num.set(self.op)
 
     def onClear(self):
@@ -125,20 +182,22 @@ class MainCalculator(tk.Frame):
                 self.isLog = False
                 self.num.set("Invalid Input")
         else:
-             try:
-                self.trueop = str(round(eval(self.trueop), 4))
-                if len(self.op) > 20 :
-                    self.op = ""
-                    self.trueop = ""
-                    self.num.set("INF")
-                else:
-                    self.op = self.trueop
-                    if float(self.trueop) > 100000:
-                        self.simplify()
-                    self.num.set(self.op)
-                    self.ans = self.trueop
-             except:
-                self.num.set("Invalid Input")
+            try:
+               self.trueop = str(round(eval(self.trueop), 4))
+               self.postfixConvert(self.op)
+               if len(self.op) > 20 :
+                   self.op = ""
+                   self.trueop = ""
+                   self.num.set("INF")
+               else:
+                   self.op = self.trueop
+                   self.isPercent = False
+                   if float(self.trueop) > 100000:
+                       self.simplify()
+                   self.num.set(self.op)
+                   self.ans = self.trueop
+            except:
+               self.num.set("Invalid Input")
 
     def onAns(self):
         #For handling 'Ans' key press
@@ -150,7 +209,8 @@ class MainCalculator(tk.Frame):
         #For handling '%' key press
         try:
             self.num.set(str(eval(self.trueop)))
-            self.op += "% * "
+            self.op += "%*"
+            self.isPercent = True
             self.num.set(self.op)
             self.trueop = str(float(self.trueop)/100) + "*"
         except:
@@ -167,9 +227,9 @@ class MainCalculator(tk.Frame):
 
     def onBackspace(self):
         #For handling '⌫' key press
-        self.op = self.op[:-1]
-        self.trueop = self.trueop[:-1]
-        self.num.set(self.op)
+         self.trueop = self.trueop[:-1]
+         self.op = self.op[:-1]
+         self.num.set(self.op)
 
     def onLog(self):
         #For handling 'Log₁₀' & 'Logₑ' key press
@@ -274,6 +334,7 @@ class MainCalculator(tk.Frame):
         self.base = math.e
         self.isLog = False
         self.isAntilog = False
+        self.isPercent = False
         self.screen = tk.Entry(self, font = ('comic sans', 40, 'bold'), textvariable = self.num, bg = "gray", justify = 'right', state = 'disabled').grid(columnspan = 5)
 
         #First row
