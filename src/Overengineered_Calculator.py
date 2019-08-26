@@ -403,20 +403,19 @@ class MainCalculator(tk.Frame):
     def addbtn(self, event=None):
         #For handling 'Add Macro' key press
         try:
-            eval(self.nameentry.get())
-            if len(self.nameentry.get()) >= 6 or eval(self.nameentry.get()) >= 100000:
+            if len(self.macroentry.get()) >= 6 or eval(self.macroentry.get()) >= 100000:
                 self.macroinput.set("Can't add a long number!")
             else:
-                self.macronumber[self.i] = str(round(eval(self.nameentry.get()), 4))
-                self.macrotext[self.i].set(self.nameentry.get())
+                self.macronumber[self.i] = str(round(eval(self.macroentry.get()), 4))
+                self.macrotext[self.i].set(self.macroentry.get())
                 self.i+=1
-                self.nameentry.delete(0, "end")
+                self.macroentry.delete(0, "end")
         except:
             self.macroinput.set("Invalid expression")
 
     def clearscreen(self, event):
         #For clearing the screen upon clicking(mouse 1) on it
-        self.nameentry.delete(0, "end")
+        self.macroentry.delete(0, "end")
         return None
 
     #Methods used for Assigning Macros - End
@@ -529,11 +528,11 @@ class MainCalculator(tk.Frame):
 
         #Entryscreen setting
 
-        self.nameentry = tk.Entry(self, font = ('comic sans', 27, 'bold'), 
+        self.macroentry = tk.Entry(self, font = ('comic sans', 27, 'bold'), 
                                   textvariable = self.macroinput, justify = 'right')
-        self.nameentry.bind("<Button-1>", self.clearscreen)
-        self.nameentry.bind("<Return>", self.addbtn)
-        self.nameentry.grid(row = 6, column = 1, columnspan = 4, sticky = 'news')
+        self.macroentry.bind("<Button-1>", self.clearscreen)
+        self.macroentry.bind("<Return>", self.addbtn)
+        self.macroentry.grid(row = 6, column = 1, columnspan = 4, sticky = 'news')
 
         #Buttons Defitions
 
