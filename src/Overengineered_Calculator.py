@@ -64,59 +64,156 @@ class MainCalculator(tk.Frame):
 
     #Methods used for Main Calculator - Start
 
-    def postfixConvert(self, oplist = []):
+    def postfixConvert(self, oplist):
+        #For converting infix expression to postfix
         stack = [""]
+        expression = ""     #This variable stores the postfix expression
+        oplist = oplist.split(' ')
         for i in oplist:
             isDone = False
-            if i == '+':
-                while (not isDone):
-                    if stack[0] == "" or stack[0] == '-' or stack[0] == '(':
-                        stack.insert(0, i)
-                        isDone = True
-                    else:
-                        try:
-                            print(stack.pop(0))
-                        except:
-                            print("Stack is empty")
-            elif i == '-':
+            if i == '-':
+                #Lowest Priority
                 while (not isDone):
                     if stack[0] == "" or stack[0] == '(':
                         stack.insert(0, i)
                         isDone = True
                     else:
                         try:
-                            print(stack.pop(0))
+                            expression += stack.pop(0) + ' '
                         except:
                             print("Stack is empty")
-            elif i == '*':
+            elif i == '+':
                 while (not isDone):
-                    if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '/' or stack[0] == '(':
+                    if stack[0] == "" or stack[0] == '-' or stack[0] == '(':
                         stack.insert(0, i)
                         isDone = True
                     else:
                         try:
-                            print(stack.pop(0))
+                            expression += stack.pop(0) + ' '
+                        except:
+                            print("Stack is empty")
+            elif i == '%':
+                while (not isDone):
+                    if stack[0] == "" or stack[0] == '(' or stack[0] == '+' or stack[0] == '-':
+                        stack.insert(0, i)
+                        isDone = True
+                    else:
+                        try:
+                            expression += stack.pop(0) + ' '
                         except:
                             print("Stack is empty")
             elif i == '/':
                 while (not isDone):
-                    if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '(':
+                    if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '(' or stack[0] == '%':
                         stack.insert(0, i)
                         isDone = True
                     else:
-                        print(stack.pop(0))
+                        expression += stack.pop(0) + ' '
+            elif i == '*':
+                while (not isDone):
+                    if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '/' or stack[0] == '%':
+                        stack.insert(0, i)
+                        isDone = True
+                    else:
+                        try:
+                            expression = stack.pop(0) + ' '
+                        except:
+                            print("Stack is empty")
+            elif i == '!':
+                while (not isDone):
+                    if stack[0] != '^':
+                        stack.insert(0, i)
+                        isDone = True
+                    else:
+                        try:
+                            expression += stack.pop(0) + ' '
+                        except:
+                            print("Stack is empty")
             elif i == '^':
                 stack.insert(0, i)
             elif i == '(':
                 stack.insert(0, i)
             elif i == ')':
                 while stack[0] != '(':
-                    print(stack.pop(0))
+                    expression += stack.pop(0) + ' '
+            elif i == '':
+                nothing = True
             else:
-                print(i)
+                expression += i + ' '
         for i in range (0, len(stack)):
             if stack[i] != '(':
-                print(stack[i])
+                expression += stack[i] + ' '
+        return self.postfixEval(expression)
+
+    def postfixEval(self, expression):
+        expression = expression.split(' ')
+        [expression.pop(-1) for x in range (2)]    #This is done in order to remove the 2 trailing spaces
+        stack = [""]
+        print(expression)
+        op = [0, 0]     #This variable stores the top 2 numbers
+        for i in expression:
+            if i == '+':
+                for x in range (2):
+                    op[x] = stack.pop(0)
+                print("LOAD_NUM " + str(op[1]))
+                print("LOAD_NUM " + str(op[0]))
+                print("LOAD_OPERATOR " + i)
+                print("RESULT " + str(float(op[1]) + float(op[0])))
+                stack.insert(0, str(float(op[1]) + float(op[0])))
+            elif i == '-':
+                for x in range (2):
+                    op[x] = stack.pop(0)
+                print("LOAD_NUM " + str(op[1]))
+                print("LOAD_NUM " +str(op[0]))
+                print("LOAD_OPERATOR " + i)
+                print("RESULT " + str(float(op[1]) - float(op[0])))
+                stack.insert(0, str(float(op[1]) - float(op[0])))
+            elif i == '*':
+                for x in range (2):
+                    op[x] = stack.pop(0)
+                print("LOAD_NUM " + str(op[1]))
+                print("LOAD_NUM " +str(op[0]))
+                print("LOAD_OPERATOR " + i)
+                print("RESULT " + str(float(op[1]) * float(op[0])))
+                stack.insert(0, str(float(op[1]) * float(op[0])))
+            elif i == '/':
+                for x in range (2):
+                    op[x] = stack.pop(0)
+                print("LOAD_NUM " + str(op[1]))
+                print("LOAD_NUM " +str(op[0]))
+                print("LOAD_OPERATOR " + i)
+                print("RESULT " + str(float(op[1]) / float(op[0])))
+                stack.insert(0, str(float(op[1]) / float(op[0])))
+            elif i == '^':
+                for x in range (2):
+                    op[x] = stack.pop(0)
+                print("LOAD_NUM " + str(op[1]))
+                print("LOAD_NUM " + str(op[0]))
+                print("LOAD_OPERATOR " + x)
+                print("RESULT " + str(float(op[1]) ** float(op[0])))
+                stack.insert(0, str(float(op[1]) ** float(op[0])))
+            elif i == '%':
+                for x in range (2):
+                    op[x] = stack.pop(0)
+                print("LOAD_NUM " + str(op[1]))
+                print("LOAD_NUM " + str(op[0]))
+                print("LOAD_OPERATOR " + i)
+                print("RESULT " + str((float(op[1])/100) * float(op[0])))
+                stack.insert(0, str((float(op[1])/100) * float(op[0])))
+            elif i == '!':
+                op[0] = math.floor(float(stack.pop(0)))
+                print("LOAD_NUM " + str(op[0]))
+                print("LOAD_OPERATOR " + i)
+                print("RESULT " + str(math.factorial(op[0])))
+                stack.insert(0, str(math.factorial(op[0])))
+            else:
+                stack.insert(0, i)          #Inserting numbers
+        if len(stack) > 2:
+            #Only 1 answer must remain at the end of every eval
+                #More than 1 answer indicates wrong input
+            raise Exception("Invalid Input")
+        else:
+            return stack.pop(0)
 
     def simplify(self):
         #For simplifying op into x * 10^y form
@@ -134,11 +231,20 @@ class MainCalculator(tk.Frame):
             self.trueop = ""
             self.num.set("INF")
         else:
-            if operator == '**':
-                self.op += '^'
-            else:
+            if (operator == '+' or operator == '-' or operator == '*' or operator == '/' or 
+                    operator == '^' or operator == '%' or operator == '!'):
+                #Stores every operator (i.e +, i, *, / etc) by wrapping them with space
                 self.op += str(operator)
-            self.trueop += str(operator)
+                self.trueop += ' ' + str(operator) + ' '
+            elif operator == '.' and self.op.count('.') == 0:
+                #Stores decimal point without space
+                self.op += "."
+                self.trueop += "."
+                self.num.set(self.op)
+            else:
+                #Stores numbers without spaces
+                self.op += str(operator)
+                self.trueop += str(operator)
             self.num.set(self.op)
 
     def onClear(self):
@@ -151,12 +257,13 @@ class MainCalculator(tk.Frame):
         #For handling '=' key press
         if self.isLog == True:
             try:
-                self.trueop = str(round(eval(self.logop + str(math.log(eval(self.trueop), self.base))), 4))
+                self.trueop = str(round(float(self.postfixConvert(self.logop + 
+                                                                  str(math.log(float(self.postfixConvert(self.trueop)), self.base)))), 4))
                 self.op = self.trueop
                 self.logop = ""
                 self.isLog = False
                 self.ans = self.trueop
-                if float(self.trueop) > 100000:
+                if float(self.op) > 100000:
                     self.simplify()
                 self.num.set(self.op)
             except:
@@ -167,12 +274,12 @@ class MainCalculator(tk.Frame):
                 self.num.set("Invalid Input")
         elif self.isAntilog == True:
             try:
-                self.trueop = str(round(eval(self.antilogop + str(10**eval(self.self.trueop))), 4))
+                self.trueop = str(round(float(self.postfixConvert(self.antilogop + str(10**float(self.postfixConvert(self.trueop))))), 4))
                 self.op = self.trueop
                 self.antilogop = ""
                 self.isAntilog = False
                 self.ans = self.trueop
-                if float(self.trueop) > 100000:
+                if float(self.op) > 100000:
                     self.simplify()
                 self.num.set(self.op)
             except:
@@ -181,23 +288,22 @@ class MainCalculator(tk.Frame):
                 self.logop = ""
                 self.isLog = False
                 self.num.set("Invalid Input")
-        else:
+        else: 
+            self.trueop = str(round(float(self.postfixConvert(self.trueop)), 4))
             try:
-               self.trueop = str(round(eval(self.trueop), 4))
-               self.postfixConvert(self.op)
-               if len(self.op) > 20 :
-                   self.op = ""
-                   self.trueop = ""
-                   self.num.set("INF")
-               else:
-                   self.op = self.trueop
-                   self.isPercent = False
-                   if float(self.trueop) > 100000:
-                       self.simplify()
-                   self.num.set(self.op)
-                   self.ans = self.trueop
+                
+                if len(self.op) > 20 :
+                    self.op = ""
+                    self.trueop = ""
+                    self.num.set("INF")
+                else:
+                    self.op = self.trueop
+                    if float(self.op) > 100000:
+                        self.simplify()
+                    self.num.set(self.op)
+                    self.ans = self.trueop
             except:
-               self.num.set("Invalid Input")
+                self.num.set("Invalid Input")
 
     def onAns(self):
         #For handling 'Ans' key press
@@ -205,31 +311,18 @@ class MainCalculator(tk.Frame):
         self.trueop += self.ans
         self.num.set(self.op)
 
-    def onPercent(self):
-        #For handling '%' key press
-        try:
-            self.num.set(str(eval(self.trueop)))
-            self.op += "%*"
-            self.isPercent = True
-            self.num.set(self.op)
-            self.trueop = str(float(self.trueop)/100) + "*"
-        except:
-            self.op = ""
-            self.trueop = ""
-            self.num.set("Invalid Input")
-
-    def onDecimal(self):
-        #For handling '.' key press
-        if(self.op.count(".") == 0):
-            self.op += "."
-            self.trueop += "."
-            self.num.set(self.op)
-
     def onBackspace(self):
         #For handling '⌫' key press
-         self.trueop = self.trueop[:-1]
-         self.op = self.op[:-1]
-         self.num.set(self.op)
+        if self.trueop == "":
+            nothing = True
+        elif self.trueop[-1] == ' ':
+            self.trueop = self.trueop[:-1]
+            self.trueop = self.trueop[:-1]
+        
+        else:
+            self.trueop = self.trueop[:-1]
+        self.op = self.op[:-1]
+        self.num.set(self.op)
 
     def onLog(self):
         #For handling 'Log₁₀' & 'Logₑ' key press
@@ -238,17 +331,21 @@ class MainCalculator(tk.Frame):
         self.isLog=True
         if len(self.trueop) > 0:
             try:
-                self.logop = str(eval(self.trueop))
-                self.logop += "*"
+                self.logop = self.postfixConvert(self.trueop)
+                self.logop += " * "
                 self.trueop = ""
             except:
                 try:
-                    self.logop = str(eval(self.trueop[:-1]))
-                    self.logop += self.trueop[-1]
+                    argument = self.trueop
+                    for x in range (3):
+                        argument = argument[:-1]
+                    self.logop = self.postfixConvert(argument)
+                    self.logop += ' ' + self.trueop[-2] + ' '
                     self.trueop = ""
                 except:
                     self.trueop = ""
                     self.op = ""
+                    self.isLog = False
                     self.num.set("Invalid Input")
         else:
             self.logop = ""
@@ -268,32 +365,25 @@ class MainCalculator(tk.Frame):
         self.isAntilog = True
         if len(self.trueop) > 0:
             try:
-                self.antilogop = str(eval(self.trueop))
-                self.antilogop += "*"
+                self.antilogop = self.postfixConvert(self.trueop)
+                self.antilogop += " * "
                 self.trueop = ""
             except:
                 try:
-                    self.antilogop = str(eval(self.trueop[:-1]))
-                    self.antilogop += self.trueop[-1]
+                    argument = self.trueop
+                    for x in range (3):
+                        argument = argument[:-1]
+                    self.antilogop = self.postfixConvert(argument)
+                    self.antilogop += ' ' + self.trueop[-2] + ' '
                     self.trueop = ""
                 except:
                     self.trueop = ""
                     self.op = ""
+                    self.isAntilog = False
                     self.num.set("Invalid Input")
         else:
             self.antilogop = ""
             self.trueop = ""
-
-    def onFactorial(self):
-        #For handling 'x!' key press
-        self.op += "!"
-        self.num.set(self.op)
-        try:
-            self.trueop = str(math.factorial(eval(self.trueop)))
-        except:
-            self.op = ""
-            self.trueop = ""
-            self.num.set("Can't factorial that!")
 
     #Methods used for Main Calculator - End
 
@@ -326,20 +416,19 @@ class MainCalculator(tk.Frame):
         #Variable definitions - For Main Calculator
 
         self.num = tk.StringVar()
-        self.op = ""
+        self.op = ""        #Variable visible to user, not used for calculation
         self.ans = ""
-        self.trueop = ""
+        self.trueop = ""    #Variable hidden to user, used for calculation
         self.logop = ""
         self.antilogop = ""
         self.base = math.e
         self.isLog = False
         self.isAntilog = False
-        self.isPercent = False
         self.screen = tk.Entry(self, font = ('comic sans', 40, 'bold'), textvariable = self.num, bg = "gray", justify = 'right', state = 'disabled').grid(columnspan = 5)
 
         #First row
 
-        btnexpon = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "xⁿ", bd = 8, command = lambda: [self.onClick("**"), self.sound('e')], 
+        btnexpon = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "xⁿ", bd = 8, command = lambda: [self.onClick("^"), self.sound('e')], 
                              bg = "black", fg = "white").grid(row = 1, column = 0, sticky = 'news')
 
         btnclear = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "C", bd=8, command = lambda: [self.onClear(), self.sound('C')], 
@@ -348,7 +437,7 @@ class MainCalculator(tk.Frame):
         btnback = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "⌫", bd = 8, command = lambda: [self.onBackspace(), self.sound('B')], 
                             bg = "black", fg = "red").grid(row = 1, column = 2, sticky = 'news')
 
-        btnpercent = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "%", bd = 8, command = lambda: [self.onPercent(), self.sound('%')], 
+        btnpercent = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "%", bd = 8, command = lambda: [self.onClick('%'), self.sound('%')], 
                                bg = "black", fg = "white").grid(row = 1, column = 3, sticky = 'news')
 
         btndivide = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "÷", bd = 8, command = lambda: [self.onClick("/"), self.sound('/')], 
@@ -405,7 +494,7 @@ class MainCalculator(tk.Frame):
                             bg = "black", fg = "white").grid(row = 4, column = 4, sticky = 'news')
         #Fifth row
 
-        btnfact = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "x!", bd = 8, command = lambda: [self.onFactorial(), self.sound("fact")], 
+        btnfact = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "x!", bd = 8, command = lambda: [self.onClick('!'), self.sound("fact")], 
                             bg = "black", fg = "white").grid(row = 5, column = 0, sticky = 'news')
 
         btnans = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Ans", bd = 8, command = lambda: [self.onAns(), self.sound("Ans")], 
@@ -414,7 +503,7 @@ class MainCalculator(tk.Frame):
         btn0 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "0", bd = 8, command = lambda: [self.onClick(0), self.sound(0)], 
                          bg = "black", fg = "white").grid(row = 5, column = 2, sticky = 'news')
 
-        btndecimal = tk.Button(self, font = ('comic sans', 20, 'bold'), text = ".", bd = 8, command = lambda: [self.onDecimal(), self.sound('.')], 
+        btndecimal = tk.Button(self, font = ('comic sans', 20, 'bold'), text = ".", bd = 8, command = lambda: [self.onClick('.'), self.sound('.')], 
                                bg = "black", fg = "white").grid(row = 5, column = 3, sticky = 'news')
 
         btnequal = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "=", bd = 8, command = lambda: [self.onEqual(), self.sound('=')],  
