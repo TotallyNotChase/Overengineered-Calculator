@@ -60,6 +60,8 @@ class MainCalculator(tk.Frame):
             playsound.playsound(base_path + "Sounds\\antilog.mp3", block=False)
         elif arg == "fact":
             playsound.playsound(base_path + "Sounds\\factorial.mp3", block=False)
+        elif arg == "new":
+            playsound.playsound(base_path + "Sounds\\macro.mp3", block=False)
         else:
             print("Sorry something went wrong")
 
@@ -410,6 +412,7 @@ class MainCalculator(tk.Frame):
                 self.macrotext[self.i].set(self.macroentry.get())
                 self.i+=1
                 self.macroentry.delete(0, "end")
+                self.sound("new")
         except:
             self.macroinput.set("Invalid expression")
 
@@ -536,7 +539,7 @@ class MainCalculator(tk.Frame):
 
         #Buttons Defitions
 
-        btnadd = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Add Macro", bd = 8, command = self.addbtn, bg = "black", fg = "white").grid(row = 6, column = 0)
+        btnadd = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Add Macro", bd = 8, command = lambda: self.addbtn(), bg = "black", fg = "white").grid(row = 6, column = 0)
         self.macrobutton = [tk.Button(self, font = ('comic sans', 20, 'bold'), textvariable = self.macrotext[x], bd=8,
                                     bg = "black", fg = "white")     
                           for x in range (5)]
@@ -548,6 +551,15 @@ class MainCalculator(tk.Frame):
         self.macrobutton[4].configure(command = lambda: self.onClick(self.macronumber[4]))
 
 class CanvasTab(tk.Frame):
+
+    def sound(self, arg):
+        #For playing sounds on different key presses
+        if arg == "yes":
+            playsound.playsound(base_path + "Sounds\\yes.mp3", block=False)
+        elif arg == "yespp":
+            playsound.playsound(base_path + "Sounds\\yespp.mp3", block=False)
+        else:
+            print("Sorry! Something went wrong")
 
     def showImage(self, image):
         #Puts the image on canvas after garbage collection
@@ -608,12 +620,12 @@ class CanvasTab(tk.Frame):
         ttk.Separator(self, orient = tk.VERTICAL).grid(row=0, column = 5, padx = 5, rowspan=4, sticky = 'ns')
         self.randomkit = [0, 0]         #A list to avoid generating the previous random number
         self.randompup = [0, 0]
-        btnkittens = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View kittens", bd = 8, command = lambda: self.fetchKittens(random.choice([i for i in range (1, 10) if i not in self.randomkit])), 
+        btnkittens = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View kittens", bd = 8, command = lambda: [self.fetchKittens(random.choice([i for i in range (1, 10) if i not in self.randomkit])), self.sound("yes")], 
                                 bg = "black", fg = "white").grid(row = 0, column = 6, ipady = 40, sticky = 'news')
 
                             #The Internal padding is so that the buttons have no gap between them
 
-        btnpuppies = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View puppies", bd = 8, command = lambda: self.fetchPuppies(random.choice([i for i in range (1, 10) if i not in self.randompup])), 
+        btnpuppies = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View puppies", bd = 8, command = lambda: [self.fetchPuppies(random.choice([i for i in range (1, 10) if i not in self.randompup])), self.sound("yespp")], 
                                 bg = "black", fg = "white").grid(row = 2, column = 6, ipady = 40, sticky = 'news')
 
         self.canvas = tk.Canvas(self, width = 497)
@@ -621,6 +633,13 @@ class CanvasTab(tk.Frame):
         self.canvas.grid(row=0, column = 7, rowspan = 4)
 
 class QuadraticTab(tk.Frame):
+
+    def sound(self, arg):
+        #For playing sounds on different key presses
+        if arg == "math":
+            playsound.playsound(base_path + "Sounds\\math.mp3", block=False)
+        else:
+            print("Sorry! Something went wrong")
 
     def onQuad(self):
         self.isQuad = True
@@ -634,14 +653,17 @@ class QuadraticTab(tk.Frame):
         if (b**2 - 4*a*c) > 0:
             self.output.set(("Roots:", round(-b / (2 * a), 2), '±', round(math.sqrt(b**2 - 4*a*c) / (2 * a), 2)))
             self.inscreen.configure(state = 'disabled')
+            self.sound("math")
             self.isQuad = False
         elif (b**2 - 4*a*c) == 0:
             self.output.set("Roots:", round(-b / (2 * a), 2))
             self.inscreen.configure(state = 'disabled')
+            self.sound("math")
             self.isQuad = False
         elif (b**2 - 4*a*c) < 0:
             self.output.set(("Roots:", round(-b / (2 * a), 2), '±', str(round(math.sqrt(-(b**2 - 4*a*c)) / (2 * a), 2)) + "i"))
             self.inscreen.configure(state = 'disabled')
+            self.sound("math")
             self.isQuad = False
 
     def start(self, event = None):
