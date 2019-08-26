@@ -11,7 +11,7 @@ It's writted in CPython and uses the following libraries:
 **FEATURES!**
   1. Calculate (duh)!
 
-      **EXCEPT!** It actually uses *manual postfix conversion and evaluation* instead of just using eval(), because why not! Watch your time waste itself while the program prints the postfix expression in the terminal and finally evaluate it, also using postfix evaluation (manually)! ᵒⁿˡʸ ᵃᵖᵖˡᶦᶜᵃᵇˡᵉ ᶠᵒʳ ʳᵉᵍᵘˡᵃʳ ᵒᵖᵉʳᵃᵗᵒʳˢ
+      **EXCEPT!** It actually uses *manual postfix conversion and evaluation* instead of just using eval(), because why not! Watch your time waste itself while the program prints the postfix expression in the terminal and then finally evaluates it, also using postfix evaluation (manually)! ⁿᵒᵗ ᵃᵖᵖˡᶦᶜᵃᵇˡᵉ ᶠᵒʳ ˡᵒᵍ ᵃⁿᵈ ᵃⁿᵗᶦˡᵒᵍ
 
   2. Did some International Math Association just add a brand new identity/number in the list of `e, pi, i etc`?. Do you feel like some numerical expression just keeps chasing you in whichever math you do?
 
@@ -22,7 +22,6 @@ It's writted in CPython and uses the following libraries:
 The calculator functions *mostly* like a normal calculator, I've not done much bug testing because I kinda procrastinated on the event and only started on the 3rd week.
 
 Couple of things to note however :
-  1. The *factorial* will evaluate all *operators* **BEFORE** `!` and then calculate it.
+  1. When you use the *log* or *antilog*, you cannot back out as the *calculation* is done as soon as you press them, so using backspace will result in (apparently) strange outputs.
 
-        for example, ```3+5!``` actually returns ```8!```
   2. Both *log* and *antilog* are currently only supported **ONCE** per calculation. More than one of them will result in a ```Invalid Input```
