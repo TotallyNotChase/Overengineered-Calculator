@@ -4,6 +4,7 @@ import random
 import tkinter as tk
 import tkinter.ttk as ttk
 from pathlib import Path
+from os import system
 
 class MainCalculator(tk.Frame):
 
@@ -602,7 +603,6 @@ class CanvasTab(tk.Frame):
         elif seed == 10:
             self.showImage(tk.PhotoImage(file = base_path + "Images\\Puppies10.png"))
 
-
     def __init__(self, parent, *args, **kwargs):
         tk.Frame.__init__(self, parent, *args, **kwargs)
 
@@ -621,6 +621,68 @@ class CanvasTab(tk.Frame):
                             #The Canvas has a height of ~280 and width of 497, this the resolution of all the pictures
         self.canvas.grid(row=0, column = 7, rowspan = 4)
 
+class QuadraticTab(tk.Frame):
+
+    def onQuad(self):
+        self.isQuad = True
+        self.inscreen.configure(state = 'normal')
+        self.input.set("Enter a b c here")
+
+    def solveQuad(self, coefflist =[]):
+        a = round(float(coefflist[0]), 2)
+        b = round(float(coefflist[1]), 2)
+        c = round(float(coefflist[2]), 2)
+        if (b**2 - 4*a*c) > 0:
+            self.output.set(("Roots:", round(-b / (2 * a), 2), '±', round(math.sqrt(b**2 - 4*a*c) / (2 * a), 2)))
+            self.inscreen.configure(state = 'disabled')
+            self.isQuad = False
+        elif (b**2 - 4*a*c) == 0:
+            self.output.set("Roots:", round(-b / (2 * a), 2))
+            self.inscreen.configure(state = 'disabled')
+            self.isQuad = False
+        elif (b**2 - 4*a*c) < 0:
+            self.output.set(("Roots:", round(-b / (2 * a), 2), '±', str(round(math.sqrt(-(b**2 - 4*a*c)) / (2 * a), 2)) + "i"))
+            self.inscreen.configure(state = 'disabled')
+            self.isQuad = False
+
+    def start(self, event = None):
+        if self.isQuad == True:
+            coeff = self.input.get()
+            coeff = coeff.split(' ')
+            if coeff.count(' ') > 0:
+                self.input.set("Invalid Input")
+            else:
+                try: 
+                    self.solveQuad(coeff)
+                    yeah = 1
+                except:
+                    self.input.set("Invalid Input")
+
+    def clearscreen(self, event):
+        #For clearing the screen upon clicking(mouse 1) on it
+        self.inscreen.delete(0, "end")
+        return None
+
+    def __init__(self, parent, *args, **kwargs):
+        tk.Frame.__init__(self, parent, *args, **kwargs)
+        ttk.Separator(self, orient = tk.VERTICAL).grid(row=0, column = 0, padx = 5, rowspan=4, sticky = 'ns')
+        self.input = tk.StringVar()
+        self.output = tk.StringVar()
+        self.isQuad = False
+        btnquadratic = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "Quadratic \nEquation", bd = 8, command = lambda: self.onQuad(), 
+                                bg = "black", fg = "white").grid(row = 0, column = 0, padx = 10, ipady = 35, sticky = 'news')
+
+        btnsolve = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "Solve!", bd = 8, command = lambda: self.start(), 
+                                bg = "black", fg = "white").grid(row = 2, column = 0, padx = 10, ipady = 35, sticky = 'news')
+        #Input Screen
+        self.inscreen = tk.Entry(self, font = ('comic sans', 30, 'bold'), textvariable = self.input, bg = "gray", justify = 'right', state = 'disabled')
+        self.inscreen.grid(row = 0, column = 2)
+        self.inscreen.bind("<Button-1>", self.clearscreen)
+        self.inscreen.bind("<Return>", self.start)
+        #Output Screen
+        self.outscreen = tk.Entry(self, font = ('comic sans', 30, 'bold'), textvariable = self.output, bg = "gray", justify = 'right', state = 'disabled')
+        self.outscreen.grid(row = 2, column = 2)
+
 if __name__ == "__main__":
     calc = tk.Tk()
     calc.title("Very Sophisticated Simple Calculator")
@@ -628,5 +690,6 @@ if __name__ == "__main__":
     base_path = str(Path(__file__).parent) + "\\assets\\"
     MainCalculator(calc).grid(columnspan=5, rowspan=8)
     MainCalculator.sound(calc, "start")
-    CanvasTab(calc).grid(row = 0, column = 6, rowspan = 4, sticky = 'news')
+    CanvasTab(calc).grid(row = 0, column = 5, rowspan = 4, sticky = 'news')
+    QuadraticTab(calc).grid(row = 5, column = 5, rowspan = 4, sticky = 'news')
     calc.mainloop()
