@@ -2,7 +2,7 @@
 
 This is just a fun little program I made for [r/programmerhumor's Overengineering hackathon](https://www.programmerhumor.org/Hackathon)
 
-It's writted in CPython and uses the following libraries:
+It's writted in Python and uses the following libraries:
   1. Tkinter
   2. Math
   3. Playsound
