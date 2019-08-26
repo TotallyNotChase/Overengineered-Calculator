@@ -8,7 +8,7 @@ It's writted in CPython and uses the following libraries:
   3. Playsound
   4. Path from Pathlib
 
-**FEATURES!**
+## FEATURES!
   1. Calculate (duh)!
 
       **EXCEPT!** It actually uses *manual postfix conversion and evaluation* instead of just using eval(), because why not! Watch your time waste itself while the program prints the postfix expression in the terminal and then finally evaluates it, also using postfix evaluation (manually)! ⁿᵒᵗ ᵃᵖᵖˡᶦᶜᵃᵇˡᵉ ᶠᵒʳ ˡᵒᵍ ᵃⁿᵈ ᵃⁿᵗᶦˡᵒᵍ
@@ -19,9 +19,13 @@ It's writted in CPython and uses the following libraries:
 
   3. Bored of the same stupid numbers and need some eyebleach? We got you covered with *kitten* and *puppy* pictures, because adding **useless** stuff and **burning** my own time really adds the **ash** to this **Trash**
 
+**BONUS FEATURE!** This calculator comes with *text-to-speech* pre installed! For times when you *really* wanna annoy the crap out of the user!
+
 The calculator functions *mostly* like a normal calculator, I've not done much bug testing because I kinda procrastinated on the event and only started on the 3rd week.
 
-Couple of things to note however :
+**Couple of things to note however** :
   1. When you use the *log* or *antilog*, you cannot back out as the *calculation* is done as soon as you press them, so using backspace will result in (apparently) strange outputs.
 
   2. Both *log* and *antilog* are currently only supported **ONCE** per calculation. More than one of them will result in a ```Invalid Input```
+
+  3. *antilog* uses the base 10 version.
