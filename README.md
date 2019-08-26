@@ -10,7 +10,11 @@ It's writted in CPython and uses the following libraries:
 
 ## Installation:-  
 
-It's compatible with Windows 10, I'm not sure if it'll support other OS(s). But for windows 10 it should just run as long as python and the required modules are installed.
+It's compatible with Windows, I'm not sure if it'll support other OS(s). But in case of windows :
+
+*If you have python and the modules mentioned installed* : Just run the .py file and it should work.
+
+*If you don't have python installed* : There is a .exe file included in the dist folder, run that instead.
 ## FEATURES!
   1. Calculate (duh)!
 
