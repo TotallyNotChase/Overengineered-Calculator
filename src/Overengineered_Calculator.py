@@ -236,11 +236,12 @@ class MainCalculator(tk.Frame):
                 #Stores every operator (i.e +, i, *, / etc) by wrapping them with space
                 self.op += str(operator)
                 self.trueop += ' ' + str(operator) + ' '
-            elif operator == '.' and self.op.count('.') == 0:
+            elif operator == '.':
                 #Stores decimal point without space
-                self.op += "."
-                self.trueop += "."
-                self.num.set(self.op)
+                if self.op.count('.') == 0:
+                    self.op += '.'
+                    self.trueop += '.'
+                    self.num.set(self.op)
             else:
                 #Stores numbers without spaces
                 self.op += str(operator)
@@ -257,6 +258,8 @@ class MainCalculator(tk.Frame):
         #For handling '=' key press
         if self.isLog == True:
             try:
+                #Basically concatenates the operators before and after log and evaluates them
+                #the operators after log are also put through math.log()
                 self.trueop = str(round(float(self.postfixConvert(self.logop + 
                                                                   str(math.log(float(self.postfixConvert(self.trueop)), self.base)))), 4))
                 self.op = self.trueop
@@ -274,6 +277,8 @@ class MainCalculator(tk.Frame):
                 self.num.set("Invalid Input")
         elif self.isAntilog == True:
             try:
+                #Basically concatenates the operators before and after antilog and evaluates them
+                #the operators after antilog are also put through antilog operation (with base 10)
                 self.trueop = str(round(float(self.postfixConvert(self.antilogop + str(10**float(self.postfixConvert(self.trueop))))), 4))
                 self.op = self.trueop
                 self.antilogop = ""
@@ -289,9 +294,8 @@ class MainCalculator(tk.Frame):
                 self.isLog = False
                 self.num.set("Invalid Input")
         else: 
-            self.trueop = str(round(float(self.postfixConvert(self.trueop)), 4))
             try:
-                
+                self.trueop = str(round(float(self.postfixConvert(self.trueop)), 4))
                 if len(self.op) > 20 :
                     self.op = ""
                     self.trueop = ""
@@ -314,11 +318,13 @@ class MainCalculator(tk.Frame):
     def onBackspace(self):
         #For handling '⌫' key press
         if self.trueop == "":
-            nothing = True
+            self.num.set("Nothin")
         elif self.trueop[-1] == ' ':
+            #If the last character of trueop is a space, it means there's an operator (i.e +, - etc)
+            #So backspace is needed thrice to remove the white spaces and the operator
             self.trueop = self.trueop[:-1]
             self.trueop = self.trueop[:-1]
-        
+            self.trueop = self.trueop[:-1]
         else:
             self.trueop = self.trueop[:-1]
         self.op = self.op[:-1]
@@ -331,16 +337,18 @@ class MainCalculator(tk.Frame):
         self.isLog=True
         if len(self.trueop) > 0:
             try:
+                #When user gave no operators(i.e +, -, * etc) before log
                 self.logop = self.postfixConvert(self.trueop)
-                self.logop += " * "
+                self.logop += " * "     #The program assumes a '*' before log
                 self.trueop = ""
             except:
                 try:
+                    #When user gave some operator(i.e +, -, * etc) before log
                     argument = self.trueop
                     for x in range (3):
                         argument = argument[:-1]
                     self.logop = self.postfixConvert(argument)
-                    self.logop += ' ' + self.trueop[-2] + ' '
+                    self.logop += ' ' + self.trueop[-2] + ' '   #The given operator is put in
                     self.trueop = ""
                 except:
                     self.trueop = ""
@@ -358,23 +366,25 @@ class MainCalculator(tk.Frame):
         elif arg == 'e':
             self.base = math.e
 
-    def onAntilog(self):\
+    def onAntilog(self):
         #For handling 'Antilog' key press
         self.op += "antilog"
         self.num.set(self.op)
         self.isAntilog = True
         if len(self.trueop) > 0:
             try:
+                #When user gave no operators(i.e +, -, * etc) before antilog
                 self.antilogop = self.postfixConvert(self.trueop)
-                self.antilogop += " * "
+                self.antilogop += " * "     #The program assumes a '*' before antilog
                 self.trueop = ""
             except:
                 try:
+                    #When user gave some operator(i.e +, -, * etc) before antilog
                     argument = self.trueop
                     for x in range (3):
                         argument = argument[:-1]
                     self.antilogop = self.postfixConvert(argument)
-                    self.antilogop += ' ' + self.trueop[-2] + ' '
+                    self.antilogop += ' ' + self.trueop[-2] + ' '   #The given operator is put in
                     self.trueop = ""
                 except:
                     self.trueop = ""
