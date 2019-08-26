@@ -314,7 +314,7 @@ class MainCalculator(tk.Frame):
 
     def onAns(self):
         #For handling 'Ans' key press
-        self.op += "Ans"
+        self.op += self.ans
         self.trueop += self.ans
         self.num.set(self.op)
 
