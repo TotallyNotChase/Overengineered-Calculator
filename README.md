@@ -12,21 +12,37 @@ It's writted in Python and uses the following libraries:
 
 It's compatible with Windows, I'm not sure if it'll support other OS(s). But in case of windows :
 
-*If you have python and the modules mentioned installed* : Just run the .py file and it should work.
+First download the repo by clicking on the download button up top
 
-*If you don't have python installed* : There is a .exe file included in the dist folder, run that instead.
+![](https://i.imgur.com/r40dNJ9.gif)
+
+*Now if you have python and the modules mentioned installed* : Just run the .py file and it should work.
+
+![](https://i.imgur.com/dYs7xza.gif)
+
+*Or if you don't have python installed* : There is a .exe file included in the dist folder, run that instead.
+
+![](https://i.imgur.com/bDD0DSc.gif)
 ## FEATURES!
   1. Calculate (duh)!
 
       **EXCEPT!** It actually uses *manual postfix conversion and evaluation* instead of just using eval(), because why not! Watch your time waste itself while the program prints the postfix expression in the terminal and then finally evaluates it, also using postfix evaluation (manually)! ⁿᵒᵗ ᵃᵖᵖˡᶦᶜᵃᵇˡᵉ ᶠᵒʳ ˡᵒᵍ ᵃⁿᵈ ᵃⁿᵗᶦˡᵒᵍ
 
+      ![](https://i.imgur.com/1UtT8nM.gif)
+
   2. Did some International Math Association just add a brand new identity/number in the list of `e, pi, i etc`?. Do you feel like some numerical expression just keeps chasing you in whichever math you do?
 
        Well! Don't fret, with the *add macro* function you can assign your **OWN** numbers, for times when you just can't be bothered to type 22/7 or 7/13!
 
+       ![](https://i.imgur.com/Ouvq8m0.gif)
+
   3. Bored of the same stupid numbers and need some eyebleach? We got you covered with *kitten* and *puppy* pictures, because adding **useless** stuff and **burning** my own time really adds the **ash** to this **Trash**
 
+       ![](https://i.imgur.com/vFD5aKn.gif)
+
   4. Oh and you can also do *Quadratic Equations* with it. Not that anyone cares.
+
+       ![](https://i.imgur.com/tYYuVek.gif)
 
 **BONUS FEATURE!** This calculator comes with *text-to-speech* pre installed! For times when you *really* wanna annoy the crap out of the user!
 
