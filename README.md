@@ -14,15 +14,16 @@ It's compatible with Windows, I'm not sure if it'll support other OS(s). But in 
 
 First download the repo by clicking on the download button up top
 
-![](https://i.imgur.com/r40dNJ9.gif)
+  ![](https://i.imgur.com/r40dNJ9.gif)
 
 *Now if you have python and the modules mentioned installed* : Just run the .py file and it should work.
 
-![](https://i.imgur.com/dYs7xza.gif)
+  ![](https://i.imgur.com/dYs7xza.gif)
 
-*Or if you don't have python installed* : There is a .exe file included in the dist folder, run that instead.
+*Or if you don't have python installed* : There is a .exe file included in the dist folder to run instead.
 
-![](https://i.imgur.com/bDD0DSc.gif)
+  ![](https://i.imgur.com/bDD0DSc.gif)
+
 ## FEATURES!
   1. Calculate (duh)!
 
