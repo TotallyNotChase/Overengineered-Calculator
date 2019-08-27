@@ -4,7 +4,6 @@ import random
 import tkinter as tk
 import tkinter.ttk as ttk
 from pathlib import Path
-from os import system
 
 class MainCalculator(tk.Frame):
 
@@ -167,7 +166,7 @@ class MainCalculator(tk.Frame):
                 for x in range (2):
                     op[x] = stack.pop(0)
                 print("LOAD_NUM " + str(op[1]))
-                print("LOAD_NUM " +str(op[0]))
+                print("LOAD_NUM " + str(op[0]))
                 print("LOAD_OPERATOR " + i)
                 print("RESULT " + str(float(op[1]) - float(op[0])))
                 stack.insert(0, str(float(op[1]) - float(op[0])))
@@ -175,7 +174,7 @@ class MainCalculator(tk.Frame):
                 for x in range (2):
                     op[x] = stack.pop(0)
                 print("LOAD_NUM " + str(op[1]))
-                print("LOAD_NUM " +str(op[0]))
+                print("LOAD_NUM " + str(op[0]))
                 print("LOAD_OPERATOR " + i)
                 print("RESULT " + str(float(op[1]) * float(op[0])))
                 stack.insert(0, str(float(op[1]) * float(op[0])))
@@ -183,16 +182,16 @@ class MainCalculator(tk.Frame):
                 for x in range (2):
                     op[x] = stack.pop(0)
                 print("LOAD_NUM " + str(op[1]))
-                print("LOAD_NUM " +str(op[0]))
+                print("LOAD_NUM " + str(op[0]))
                 print("LOAD_OPERATOR " + i)
                 print("RESULT " + str(float(op[1]) / float(op[0])))
                 stack.insert(0, str(float(op[1]) / float(op[0])))
             elif i == '^':
                 for x in range (2):
                     op[x] = stack.pop(0)
-                print("LOAD_NUM " + str(op[1]))
-                print("LOAD_NUM " + str(op[0]))
-                print("LOAD_OPERATOR " + x)
+                print("LOAD_NUM " + str(float(op[1])))
+                print("LOAD_NUM " + str(float(op[0])))
+                print("LOAD_OPERATOR " + i)
                 print("RESULT " + str(float(op[1]) ** float(op[0])))
                 stack.insert(0, str(float(op[1]) ** float(op[0])))
             elif i == '%':
@@ -297,8 +296,9 @@ class MainCalculator(tk.Frame):
                 self.isLog = False
                 self.num.set("Invalid Input")
         else: 
+            self.trueop = str(round(float(self.postfixConvert(self.trueop)), 4))
             try:
-                self.trueop = str(round(float(self.postfixConvert(self.trueop)), 4))
+                
                 if len(self.op) > 20 :
                     self.op = ""
                     self.trueop = ""
@@ -661,7 +661,7 @@ class QuadraticTab(tk.Frame):
             self.sound("math")
             self.isQuad = False
         elif (b**2 - 4*a*c) < 0:
-            self.output.set(("Roots:", round(-b / (2 * a), 2), '±', str(round(math.sqrt(-(b**2 - 4*a*c)) / (2 * a), 2)) + "i"))
+            self.output.set(("Roots:", round(-b / (2 * a), 2), '±', round(math.sqrt(-(b**2 - 4*a*c)) / (2 * a), 2), "i"))
             self.inscreen.configure(state = 'disabled')
             self.sound("math")
             self.isQuad = False
@@ -675,7 +675,6 @@ class QuadraticTab(tk.Frame):
             else:
                 try: 
                     self.solveQuad(coeff)
-                    yeah = 1
                 except:
                     self.input.set("Invalid Input")
 
@@ -708,6 +707,7 @@ if __name__ == "__main__":
     calc = tk.Tk()
     calc.title("Very Sophisticated Simple Calculator")
     calc.configure(background="gray")
+    calc.resizable(width = False, height = False)
     base_path = str(Path(__file__).parent) + "\\assets\\"
     MainCalculator(calc).grid(columnspan=5, rowspan=8)
     MainCalculator.sound(calc, "start")

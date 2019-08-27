@@ -49,4 +49,6 @@ The calculator functions *mostly* like a normal calculator, I've not done much b
 
   2. Both *log* and *antilog* are currently only supported **ONCE** per calculation. More than one of them will result in a ```Invalid Input```
 
-  3. *antilog* uses the base 10 version.
+  3. *antilog* uses the `base 10` version.
+
+  4. *Factorial* does **not** support `floating point operators` and will automatically estimate the nearest `integer` instead.
