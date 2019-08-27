@@ -296,9 +296,8 @@ class MainCalculator(tk.Frame):
                 self.isLog = False
                 self.num.set("Invalid Input")
         else: 
-            self.trueop = str(round(float(self.postfixConvert(self.trueop)), 4))
             try:
-                
+                self.trueop = str(round(float(self.postfixConvert(self.trueop)), 4))
                 if len(self.op) > 20 :
                     self.op = ""
                     self.trueop = ""
@@ -321,7 +320,7 @@ class MainCalculator(tk.Frame):
     def onBackspace(self):
         #For handling '⌫' key press
         if self.trueop == "":
-            self.num.set("Nothin")
+            self.num.set("Nothin here")
         elif self.trueop[-1] == ' ':
             #If the last character of trueop is a space, it means there's an operator (i.e +, - etc)
             #So backspace is needed thrice to remove the white spaces and the operator
