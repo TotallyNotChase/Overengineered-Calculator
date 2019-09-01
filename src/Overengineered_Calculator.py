@@ -441,23 +441,23 @@ class MainCalculator(tk.Frame):
         #First row
 
         btnexpon = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "xⁿ", bd = 8, command = lambda: [self.onClick("^"), self.sound('e')], 
-                             bg = "black", fg = "white").grid(row = 1, column = 0, sticky = 'news')
+                             bg = "#2d2894", fg = "white").grid(row = 1, column = 0, sticky = 'news')
 
         btnclear = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "C", bd=8, command = lambda: [self.onClear(), self.sound('C')], 
-                             bg = "black", fg = "orange").grid(row = 1, column = 1, sticky = 'news')
+                             bg = "#8f1818", fg = "white").grid(row = 1, column = 1, sticky = 'news')
 
         btnback = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "⌫", bd = 8, command = lambda: [self.onBackspace(), self.sound('B')], 
-                            bg = "black", fg = "red").grid(row = 1, column = 2, sticky = 'news')
+                            bg = "#383232", fg = "white").grid(row = 1, column = 2, sticky = 'news')
 
         btnpercent = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "%", bd = 8, command = lambda: [self.onClick('%'), self.sound('%')], 
-                               bg = "black", fg = "white").grid(row = 1, column = 3, sticky = 'news')
+                               bg = "#2d2894", fg = "white").grid(row = 1, column = 3, sticky = 'news')
 
         btndivide = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "÷", bd = 8, command = lambda: [self.onClick("/"), self.sound('/')], 
-                              bg = "black", fg = "white").grid(row = 1, column = 4, sticky = 'news')
+                              bg = "#154de8", fg = "white").grid(row = 1, column = 4, sticky = 'news')
         #Second row
 
         btnloge = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Logₑ", bd = 8, command = lambda: [self.onLog(), self.sound("log"), self.setlogbase('e')], 
-                            bg = "black", fg = "white").grid(row = 2, column = 0, sticky = 'news')
+                            bg = "#2d2894", fg = "white").grid(row = 2, column = 0, sticky = 'news')
 
         btn7 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "7", bd = 8, command = lambda: [self.onClick(7), self.sound(7)], 
                          bg = "black", fg = "white").grid(row = 2, column = 1, sticky = 'news')
@@ -469,11 +469,11 @@ class MainCalculator(tk.Frame):
                          bg = "black", fg = "white").grid(row = 2, column = 3, sticky = 'news')
 
         btnmultiply = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "×", command = lambda: [self.onClick("*"), self.sound('*')], bd=8, 
-                                bg = "black", fg = "white").grid(row = 2, column = 4, sticky = 'news')
+                                bg = "#154de8", fg = "white").grid(row = 2, column = 4, sticky = 'news')
         #Third row
 
         btnlog10 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Log₁₀", bd = 8, command = lambda: [self.onLog(), self.sound("log"), self.setlogbase(10)],
-                             bg = "black", fg = "white").grid(row = 3, column = 0, sticky = 'news')
+                             bg = "#2d2894", fg = "white").grid(row = 3, column = 0, sticky = 'news')
 
         btn4 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "4", bd = 8, command = lambda: [self.onClick(4), self.sound(4)], 
                          bg = "black", fg = "white").grid(row = 3, column = 1, sticky = 'news')
@@ -485,12 +485,12 @@ class MainCalculator(tk.Frame):
                          bg = "black", fg = "white").grid(row = 3, column = 3, sticky = 'news')
 
         btnminus = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "-", bd = 8, command = lambda: [self.onClick("-"), self.sound('-')],  
-                             bg = "black", fg = "white").grid(row = 3, column = 4, sticky = 'news')
+                             bg = "#154de8", fg = "white").grid(row = 3, column = 4, sticky = 'news')
 
         #Fourth row
 
         btnantilog10 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Antilog₁₀", bd = 8, command = lambda:[self.onAntilog(), self.sound("antilog")], 
-                                 bg = "black", fg = "white").grid(row = 4, column = 0, sticky = 'news')
+                                 bg = "#2d2894", fg = "white").grid(row = 4, column = 0, sticky = 'news')
 
 
         btn1 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "1", bd = 8, command = lambda: [self.onClick(1), self.sound(1)], 
@@ -503,14 +503,14 @@ class MainCalculator(tk.Frame):
                          bg = "black", fg = "white").grid(row = 4, column = 3, sticky = 'news')
 
         btnplus = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "+", bd = 8, command = lambda: [self.onClick("+"), self.sound('+')], 
-                            bg = "black", fg = "white").grid(row = 4, column = 4, sticky = 'news')
+                            bg = "#154de8", fg = "white").grid(row = 4, column = 4, sticky = 'news')
         #Fifth row
 
         btnfact = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "x!", bd = 8, command = lambda: [self.onClick('!'), self.sound("fact")], 
-                            bg = "black", fg = "white").grid(row = 5, column = 0, sticky = 'news')
+                            bg = "#2d2894", fg = "white").grid(row = 5, column = 0, sticky = 'news')
 
         btnans = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Ans", bd = 8, command = lambda: [self.onAns(), self.sound("Ans")], 
-                           bg = "black", fg = "green").grid(row = 5, column = 1, sticky = 'news')
+                           bg = "#125c21", fg = "white").grid(row = 5, column = 1, sticky = 'news')
 
         btn0 = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "0", bd = 8, command = lambda: [self.onClick(0), self.sound(0)], 
                          bg = "black", fg = "white").grid(row = 5, column = 2, sticky = 'news')
@@ -519,7 +519,7 @@ class MainCalculator(tk.Frame):
                                bg = "black", fg = "white").grid(row = 5, column = 3, sticky = 'news')
 
         btnequal = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "=", bd = 8, command = lambda: [self.onEqual(), self.sound('=')],  
-                             bg = "black", fg = "white").grid(row = 5, column = 4, sticky = 'news')
+                             bg = "#125c21", fg = "white").grid(row = 5, column = 4, sticky = 'news')
 
         #Variable definitions - For Assigning Macros
 
@@ -538,7 +538,7 @@ class MainCalculator(tk.Frame):
 
         #Buttons Defitions
 
-        btnadd = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Add Macro", bd = 8, command = lambda: self.addbtn(), bg = "black", fg = "white").grid(row = 6, column = 0)
+        btnadd = tk.Button(self, font = ('comic sans', 20, 'bold'), text = "Add Macro", bd = 8, command = lambda: self.addbtn(), bg = "#ad9600", fg = "white").grid(row = 6, column = 0)
         self.macrobutton = [tk.Button(self, font = ('comic sans', 20, 'bold'), textvariable = self.macrotext[x], bd=8,
                                     bg = "black", fg = "white")     
                           for x in range (5)]
@@ -619,13 +619,15 @@ class CanvasTab(tk.Frame):
         ttk.Separator(self, orient = tk.VERTICAL).grid(row=0, column = 5, padx = 5, rowspan=4, sticky = 'ns')
         self.randomkit = [0, 0]         #A list to avoid generating the previous random number
         self.randompup = [0, 0]
-        btnkittens = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View kittens", bd = 8, command = lambda: [self.fetchKittens(random.choice([i for i in range (1, 10) if i not in self.randomkit])), self.sound("yes")], 
-                                bg = "black", fg = "white").grid(row = 0, column = 6, ipady = 40, sticky = 'news')
+        btnkittens = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View kittens", bd = 8, 
+                               command = lambda: [self.fetchKittens(random.choice([i for i in range (1, 10) if i not in self.randomkit])), self.sound("yes")], relief = "ridge", 
+                               bg = "#125c21", fg = "white").grid(row = 0, column = 6, ipady = 40, sticky = 'news')
 
                             #The Internal padding is so that the buttons have no gap between them
 
-        btnpuppies = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View puppies", bd = 8, command = lambda: [self.fetchPuppies(random.choice([i for i in range (1, 10) if i not in self.randompup])), self.sound("yespp")], 
-                                bg = "black", fg = "white").grid(row = 2, column = 6, ipady = 40, sticky = 'news')
+        btnpuppies = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "View puppies", bd = 8, 
+                               command = lambda: [self.fetchPuppies(random.choice([i for i in range (1, 10) if i not in self.randompup])), self.sound("yespp")], relief = "ridge", 
+                               bg = "#125c21", fg = "white").grid(row = 2, column = 6, ipady = 40, sticky = 'news')
 
         self.canvas = tk.Canvas(self, width = 497)
                             #The Canvas has a height of ~280 and width of 497, this the resolution of all the pictures
@@ -642,6 +644,7 @@ class QuadraticTab(tk.Frame):
 
     def onQuad(self):
         self.isQuad = True
+        self.btnquadratic.configure(relief = "sunken")
         self.inscreen.configure(state = 'normal')
         self.input.set("Enter a b c here")
 
@@ -674,8 +677,10 @@ class QuadraticTab(tk.Frame):
             else:
                 try: 
                     self.solveQuad(coeff)
+                    self.btnquadratic.configure(relief = "raised")
                 except:
                     self.input.set("Invalid Input")
+                    self.btnquadratic.configure(relief = "raised")
 
     def clearscreen(self, event):
         #For clearing the screen upon clicking(mouse 1) on it
@@ -688,11 +693,14 @@ class QuadraticTab(tk.Frame):
         self.input = tk.StringVar()
         self.output = tk.StringVar()
         self.isQuad = False
-        btnquadratic = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "Quadratic \nEquation", bd = 8, command = lambda: self.onQuad(), 
-                                bg = "black", fg = "white").grid(row = 0, column = 0, padx = 10, ipady = 35, sticky = 'news')
+        self.btnquadratic = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "Quadratic \nEquation", bd = 8, command = lambda: self.onQuad(), relief = "raised", 
+                                bg = "#ad9600", fg = "white")
+        self.btnquadratic.grid(row = 0, column = 0, padx = 10, ipady = 35, sticky = 'news')
 
-        btnsolve = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "Solve!", bd = 8, command = lambda: self.start(), 
-                                bg = "black", fg = "white").grid(row = 2, column = 0, padx = 10, ipady = 35, sticky = 'news')
+        btnsolve = tk.Button(self, font = ('comic sans', 15, 'bold'), text = "Solve!", bd = 8, command = lambda: self.start(), relief = "ridge", 
+                                bg = "#125c21", fg = "white")
+        btnsolve.grid(row = 2, column = 0, padx = 10, ipady = 35, sticky = 'news')
+
         #Input Screen
         self.inscreen = tk.Entry(self, font = ('comic sans', 30, 'bold'), textvariable = self.input, bg = "gray", justify = 'right', state = 'disabled')
         self.inscreen.grid(row = 0, column = 2)
