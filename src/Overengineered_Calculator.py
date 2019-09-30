@@ -73,20 +73,10 @@ class MainCalculator(tk.Frame):
         oplist = oplist.split(' ')
         for i in oplist:
             isDone = False
-            if i == '-':
+            if i == '-' or i == '+':
                 #Lowest Priority
                 while (not isDone):
                     if stack[0] == "" or stack[0] == '(':
-                        stack.insert(0, i)
-                        isDone = True
-                    else:
-                        try:
-                            expression += stack.pop(0) + ' '
-                        except:
-                            print("Stack is empty")
-            elif i == '+':
-                while (not isDone):
-                    if stack[0] == "" or stack[0] == '-' or stack[0] == '(':
                         stack.insert(0, i)
                         isDone = True
                     else:
@@ -104,23 +94,13 @@ class MainCalculator(tk.Frame):
                             expression += stack.pop(0) + ' '
                         except:
                             print("Stack is empty")
-            elif i == '/':
+            elif i == '/' or i == '*':
                 while (not isDone):
                     if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '(' or stack[0] == '%':
                         stack.insert(0, i)
                         isDone = True
                     else:
                         expression += stack.pop(0) + ' '
-            elif i == '*':
-                while (not isDone):
-                    if stack[0] == "" or stack[0] == '+' or stack[0] == '-' or stack[0] == '/' or stack[0] == '%':
-                        stack.insert(0, i)
-                        isDone = True
-                    else:
-                        try:
-                            expression = stack.pop(0) + ' '
-                        except:
-                            print("Stack is empty")
             elif i == '!':
                 while (not isDone):
                     if stack[0] != '^':
@@ -145,11 +125,10 @@ class MainCalculator(tk.Frame):
         for i in range (0, len(stack)):
             if stack[i] != '(':
                 expression += stack[i] + ' '
-        return self.postfixEval(expression)
+        return self.postfixEval(expression.strip())
 
     def postfixEval(self, expression):
         expression = expression.split(' ')
-        [expression.pop(-1) for x in range (2)]    #This is done in order to remove the 2 trailing spaces
         stack = [""]
         print(expression)
         op = [0, 0]     #This variable stores the top 2 numbers
